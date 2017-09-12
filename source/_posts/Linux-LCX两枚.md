@@ -1,7 +1,10 @@
 ---
 title: Linux-LCX两枚
 date: 2017-09-11 17:43:41
-tags: 渗透
+tags: 
+    - 渗透
+    - 内网
+categories: 渗透
 ---
 
 保存为lcx.c然后用gcc编译即可，如果遇到编译错误的情况可以尝试使用下一个

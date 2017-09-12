@@ -1,7 +1,11 @@
 ---
 title: back.py反弹shell
 date: 2017-09-11 17:50:57
-tags: 渗透
+tags: 
+    - 渗透
+    - 内网
+    - Python
+categories: 渗透
 ---
 
 back.py会自动去掉各种history记录，确保shell断掉的时候不会被记录到bash_history里面，而且反弹也稳定不会断，推荐使用

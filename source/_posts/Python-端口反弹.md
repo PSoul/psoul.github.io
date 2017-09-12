@@ -1,7 +1,11 @@
 ---
 title: Python-端口反弹
 date: 2017-09-11 17:49:03
-tags: 渗透
+tags: 
+	- 渗透
+	- python
+	- 内网
+categories: 渗透
 ---
 
 Python版本端口反弹之前分享了两个LCX，接下来分享个更常用的Python版本的lcx，作者是KnownSec的大牛

@@ -1,7 +1,10 @@
 ---
 title: 各种反弹shell姿势
 date: 2017-09-11 17:51:45
-tags: 渗透
+tags: 
+	- 渗透
+	- 内网
+categories: 渗透
 ---
 
 除以下介绍的一句话反弹shell姿势外，还有一种back.py反弹，推荐

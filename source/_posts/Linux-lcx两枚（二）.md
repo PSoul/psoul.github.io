@@ -1,7 +1,10 @@
 ---
 title: Linux-lcx两枚（二）
 date: 2017-09-11 17:45:29
-tags: 渗透
+tags: 
+	- 渗透
+	- 内网
+categories: 渗透
 ---
 
 此工具叫trtool，在Linux下适用性比较高（编译成功率高），推荐
