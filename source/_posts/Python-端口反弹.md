@@ -9,6 +9,11 @@ categories: 渗透
 ---
 
 Python版本端口反弹之前分享了两个LCX，接下来分享个更常用的Python版本的lcx，作者是KnownSec的大牛
+[原文链接](http://blog.knownsec.com/2012/02/open-source-rtcp/)
+
+<!-- more -->
+
+Python版本端口反弹之前分享了两个LCX，接下来分享个更常用的Python版本的lcx，作者是KnownSec的大牛
 
 [原文链接](http://blog.knownsec.com/2012/02/open-source-rtcp/)
 
@@ -170,3 +175,5 @@ if __name__ == '__main__':
 		t.join()
 	sys.exit(0)
 ```
+
+

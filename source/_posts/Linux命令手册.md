@@ -7,6 +7,11 @@ tags:
 categories: 运维
 ---
 
+各种linux命令杂项备忘
+
+<!-- more -->
+
+
 ### 搜索文件内容
 grep -i 'xx' *
 
@@ -262,3 +267,4 @@ PSK:$mypsk
 
 "
 ```
+

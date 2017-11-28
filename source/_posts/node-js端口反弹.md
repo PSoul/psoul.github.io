@@ -9,6 +9,13 @@ categories: 渗透
 
 适用于服务器支持执行JS的情况
 
+具体命令代码help里面就有
+
+<!-- more -->
+
+
+适用于服务器支持执行JS的情况
+
 具体命令help里面就有
 
 ``` nodejs
@@ -95,3 +102,5 @@ server.listen(parseInt(args.lport), function () {
 		console.log("Portmap: server bound");
 });
 ```
+
+

@@ -7,6 +7,10 @@ tags:
 categories: 渗透
 ---
 
+收集一些msf下生成各种payload的命令
+
+<!-- more -->
+
     List payloads
     msfvenom -l
     
@@ -61,3 +65,5 @@ set ExitOnSession false
 
 exploit -j -z
 ```
+
+

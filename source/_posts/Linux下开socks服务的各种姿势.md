@@ -8,6 +8,11 @@ categories: 渗透
 ---
 在Linux内网渗透中，开个socks服务出来漫游内网当然是最惬意的事情了，以下姿势均为网上搜集，配合端口反弹效果更佳
 
+<!-- more -->
+
+
+在Linux内网渗透中，开个socks服务出来漫游内网当然是最惬意的事情了，以下姿势均为网上搜集，配合端口反弹效果更佳
+
 首先是Python版本，当然是猪猪侠大牛的s5.py了
 
 S5.PY：
@@ -271,3 +276,5 @@ sub socks_udp_associate {
 my($client, $host, $port) = @_; 
 }
 ```
+
+

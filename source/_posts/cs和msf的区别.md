@@ -6,6 +6,9 @@ tags:
 categories: 渗透
 ---
 
+Cobalt Strike与metasploit以前曾是GUI版本与命令行版本的关系，现在脱离自己重写后，个人觉得Cobalt Strike更偏重于稳定控制，而MetaSploit偏向于横向渗透。MetaSploit在渗透个人机方面作用比较小，而Cobalt Strike相对作用会更大一些。所以Cobalt Strike与metasploit现在是一种***互补***的关系。
+
+<!-- more -->
 
 ### 首先介绍一下Cobalt Strike
 **Cobalt Strike是一款以metasploit为基础的GUI的框架式渗透工具，集成了端口转发、服务扫描，自动化溢出，多模式端口监听，win exe木马生成，win dll木马生成，java木马生成，office宏病毒生成，木马捆绑；钓鱼攻击包括：站点克隆，目标信息获取，java执行，浏览器自动攻击等等。**
