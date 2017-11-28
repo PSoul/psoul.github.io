@@ -118,12 +118,13 @@ social_icons:
   Weibo: weibo
 
 # Blog rolls
-#links_title: Links
-#links_layout: block
-#links_layout: inline
-#links:
-  #Title: http://example.com/
-
+links_title: Links
+# links_layout: block
+links_layout: inline
+links:
+  Jimmy: http://jimmy.wiki/wordpress
+  Jiushao: http://www.jiushao.net/
+  Masker: http://www.masker.top/
 # Sidebar Avatar
 # in theme directory(source/images): /images/avatar.jpg
 # in site  directory(source/uploads): /uploads/avatar.jpg
