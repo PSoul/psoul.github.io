@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="SDL," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="SDL的全称是Security Development Lifecycle，即：安全开发生命周期。它是由微软最早提出的，在软件工程中实施，是帮助解决软件安全问题的办法。SDL是一个安全保证的过程，起重点是软件开发，它在开发的所有阶段都引入了安全和隐私的原则。自2004年起，SDL一直都是微软在全公司实施的强制性策略。">
+<meta name="keywords" content="SDL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="安全开发流程">
+<meta property="og:url" content="http://aten8.net/2017/09/11/安全开发流程/index.html">
+<meta property="og:site_name" content="两只狗">
+<meta property="og:description" content="SDL的全称是Security Development Lifecycle，即：安全开发生命周期。它是由微软最早提出的，在软件工程中实施，是帮助解决软件安全问题的办法。SDL是一个安全保证的过程，起重点是软件开发，它在开发的所有阶段都引入了安全和隐私的原则。自2004年起，SDL一直都是微软在全公司实施的强制性策略。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-02-06T07:40:39.553Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="安全开发流程">
+<meta name="twitter:description" content="SDL的全称是Security Development Lifecycle，即：安全开发生命周期。它是由微软最早提出的，在软件工程中实施，是帮助解决软件安全问题的办法。SDL是一个安全保证的过程，起重点是软件开发，它在开发的所有阶段都引入了安全和隐私的原则。自2004年起，SDL一直都是微软在全公司实施的强制性策略。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://aten8.net/2017/09/11/安全开发流程/"/>
+
+
+
+
+
+  <title>安全开发流程 | 两只狗</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">两只狗</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于我
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-drops">
+          <a href="/drops/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            乌云知识库
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://aten8.net/2017/09/11/安全开发流程/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kyrie">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="两只狗">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">安全开发流程</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-11T17:31:47+08:00">
+                2017-09-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/杂谈/" itemprop="url" rel="index">
+                    <span itemprop="name">杂谈</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>SDL的全称是Security Development Lifecycle，即：安全开发生命周期。它是由微软最早提出的，在软件工程中实施，是帮助解决软件安全问题的办法。SDL是一个安全保证的过程，起重点是软件开发，它在开发的所有阶段都引入了安全和隐私的原则。自2004年起，SDL一直都是微软在全公司实施的强制性策略。</p>
+<a id="more"></a>
+<p>SDL的全称是Security Development Lifecycle，即：安全开发生命周期。它是由微软最早提出的，在软件工程中实施，是帮助解决软件安全问题的办法。SDL是一个安全保证的过程，起重点是软件开发，它在开发的所有阶段都引入了安全和隐私的原则。自2004年起，SDL一直都是微软在全公司实施的强制性策略。</p>
+<p>SDL中的方法，试图从安全漏洞产生的根源上解决问题，通过对软件工程的控制，保证产品的安全性。<br>SDL的步骤包括：</p>
+<h4 id="阶段1：培训"><a href="#阶段1：培训" class="headerlink" title="阶段1：培训"></a>阶段1：培训</h4><p>开发团队的所有成员都必须接受适当的安全培训，了解相关的安全知识，培训对象包括开发人员、测试人员、项目经理、产品经理等。</p>
+<h4 id="阶段2：安全要求"><a href="#阶段2：安全要求" class="headerlink" title="阶段2：安全要求"></a>阶段2：安全要求</h4><p>在项目确立之前，需要提前与项目经理或者产品owner进行沟通，确定安全的要求和需要做的事情。确认项目计划和里程碑，尽量避免因为安全问题而导致项目延期发布。</p>
+<h4 id="阶段3：质量门-bug栏"><a href="#阶段3：质量门-bug栏" class="headerlink" title="阶段3：质量门/bug栏"></a>阶段3：质量门/bug栏</h4><h4 id="阶段4：安全和隐私风险评估"><a href="#阶段4：安全和隐私风险评估" class="headerlink" title="阶段4：安全和隐私风险评估"></a>阶段4：安全和隐私风险评估</h4><p>安全风险评估（SRA）和隐私风险评估(PRA)是一个必需的过程，必须包括以下信息：</p>
+<p>a.项目的哪些部分在发布前需要威胁模型？</p>
+<p>b.项目的哪些部分在发布前需要进行安全设计评析</p>
+<p>c.项目的哪些部分需要并不食欲项目团队且双方认可的小组进行渗透测试</p>
+<p>d.是否存在安全顾问认为有必要增加的测试或分析要求已缓解安全风险</p>
+<p>e.模糊测试要求的具体范围i额是什么</p>
+<p>f.隐私影响评级如何</p>
+<h4 id="阶段5：设计要求"><a href="#阶段5：设计要求" class="headerlink" title="阶段5：设计要求"></a>阶段5：设计要求</h4><p>在设计阶段应仔细考虑安全和隐私问题，在项目初期确定好安全需求，尽可能避免安全引起的需求变更。</p>
+<h4 id="阶段6：减小攻击面"><a href="#阶段6：减小攻击面" class="headerlink" title="阶段6：减小攻击面"></a>阶段6：减小攻击面</h4><h4 id="阶段7：威胁建模"><a href="#阶段7：威胁建模" class="headerlink" title="阶段7：威胁建模"></a>阶段7：威胁建模</h4><p>为项目或产品面临的威胁建立模型，明确可能来自的攻击有哪些方面。</p>
+<h4 id="阶段8：使用指定的工具"><a href="#阶段8：使用指定的工具" class="headerlink" title="阶段8：使用指定的工具"></a>阶段8：使用指定的工具</h4><p>开发团队使用的编辑器、链接器等相关工具，可能会涉及一些安全相关的环节，因此在使用工具的版本上，需要提前与安全团队进行沟通。</p>
+<h4 id="阶段9：弃用不安全函数"><a href="#阶段9：弃用不安全函数" class="headerlink" title="阶段9：弃用不安全函数"></a>阶段9：弃用不安全函数</h4><p>许多常用函数可能存在安全隐患，应当禁用不安全的函数和API，使用安全团队推荐的函数。</p>
+<h4 id="阶段10：静态分析"><a href="#阶段10：静态分析" class="headerlink" title="阶段10：静态分析"></a>阶段10：静态分析</h4><p>代码静态分析可以由相关工具辅助完成，其结果与人工分析相结合。</p>
+<h4 id="阶段11：动态程序分析"><a href="#阶段11：动态程序分析" class="headerlink" title="阶段11：动态程序分析"></a>阶段11：动态程序分析</h4><h4 id="阶段12：模糊测试（Fuzzing-Test）"><a href="#阶段12：模糊测试（Fuzzing-Test）" class="headerlink" title="阶段12：模糊测试（Fuzzing Test）"></a>阶段12：模糊测试（Fuzzing Test）</h4><h4 id="阶段13：威胁模型和攻击面评析"><a href="#阶段13：威胁模型和攻击面评析" class="headerlink" title="阶段13：威胁模型和攻击面评析"></a>阶段13：威胁模型和攻击面评析</h4><h4 id="阶段14：事件响应计划"><a href="#阶段14：事件响应计划" class="headerlink" title="阶段14：事件响应计划"></a>阶段14：事件响应计划</h4><h4 id="阶段15：最终安全评析"><a href="#阶段15：最终安全评析" class="headerlink" title="阶段15：最终安全评析"></a>阶段15：最终安全评析</h4><h4 id="阶段16：发布-存档"><a href="#阶段16：发布-存档" class="headerlink" title="阶段16：发布/存档"></a>阶段16：发布/存档</h4><h3 id="SDL实战经验准则："><a href="#SDL实战经验准则：" class="headerlink" title="SDL实战经验准则："></a>SDL实战经验准则：</h3><p>准则一：与项目经理进行充分沟通，排除足够的时间</p>
+<p>准则二：规范公司的立项流程，确保所有项目都能通知到安全团队，避免遗漏</p>
+<p>准则三：树立安全部门的权威，项目必须由安全部门审核完成后才能发布</p>
+<p>准则四：将技术方案写入开发、测试的工作手册中</p>
+<p>准则五：给工程师培训安全方案</p>
+<p>准则六：记录所有的安全bug，激励程序员编写安全的代码</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    Kyrie
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://aten8.net/2017/09/11/安全开发流程/" title="安全开发流程">http://aten8.net/2017/09/11/安全开发流程/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/SDL/" rel="tag"># SDL</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/09/11/上传文件的各种套路/" rel="prev" title="上传文件的各种套路">
+                上传文件的各种套路 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Kyrie" />
+          <p class="site-author-name" itemprop="name">Kyrie</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://jimmy.wiki/wordpress" title="Jimmy" target="_blank">Jimmy</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.jiushao.net/" title="Jiushao" target="_blank">Jiushao</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.masker.top/" title="Masker" target="_blank">Masker</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#阶段1：培训"><span class="nav-number">1.</span> <span class="nav-text">阶段1：培训</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#阶段2：安全要求"><span class="nav-number">2.</span> <span class="nav-text">阶段2：安全要求</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#阶段3：质量门-bug栏"><span class="nav-number">3.</span> <span class="nav-text">阶段3：质量门/bug栏</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#阶段4：安全和隐私风险评估"><span class="nav-number">4.</span> <span class="nav-text">阶段4：安全和隐私风险评估</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#阶段5：设计要求"><span class="nav-number">5.</span> <span class="nav-text">阶段5：设计要求</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#阶段6：减小攻击面"><span class="nav-number">6.</span> <span class="nav-text">阶段6：减小攻击面</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#阶段7：威胁建模"><span class="nav-number">7.</span> <span class="nav-text">阶段7：威胁建模</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#阶段8：使用指定的工具"><span class="nav-number">8.</span> <span class="nav-text">阶段8：使用指定的工具</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#阶段9：弃用不安全函数"><span class="nav-number">9.</span> <span class="nav-text">阶段9：弃用不安全函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#阶段10：静态分析"><span class="nav-number">10.</span> <span class="nav-text">阶段10：静态分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#阶段11：动态程序分析"><span class="nav-number">11.</span> <span class="nav-text">阶段11：动态程序分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#阶段12：模糊测试（Fuzzing-Test）"><span class="nav-number">12.</span> <span class="nav-text">阶段12：模糊测试（Fuzzing Test）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#阶段13：威胁模型和攻击面评析"><span class="nav-number">13.</span> <span class="nav-text">阶段13：威胁模型和攻击面评析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#阶段14：事件响应计划"><span class="nav-number">14.</span> <span class="nav-text">阶段14：事件响应计划</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#阶段15：最终安全评析"><span class="nav-number">15.</span> <span class="nav-text">阶段15：最终安全评析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#阶段16：发布-存档"><span class="nav-number">16.</span> <span class="nav-text">阶段16：发布/存档</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SDL实战经验准则："><span class="nav-number"></span> <span class="nav-text">SDL实战经验准则：</span></a></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kyrie</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
